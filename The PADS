@@ -1,0 +1,25 @@
+/*
+Enter your query here.
+*/
+SELECT result
+from(
+(SELECT 
+concat(name,'(',left(occupation,1),')') as result,
+1 as section,
+name as sort_by,
+0 as count_value
+from occupations
+)
+UNION
+(SELECT
+concat('There are a total of ',count(*),' ',lower(occupation),'s.') as result,
+2 as section,
+occupation as sort_by ,
+count(*) as count_value
+from occupations
+group by occupation
+)) as temp
+order by section , count_value,sort_by
+;
+
+
