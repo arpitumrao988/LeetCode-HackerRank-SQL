@@ -1,0 +1,17 @@
+# Write your MySQL query statement below
+-- solution 1
+select name 
+from employee
+where id in (select managerId
+from employee
+group by managerId
+having count(*)>=5);
+-- solution 2
+select e1.name
+from employee e1 join (
+    select managerId
+    from employee 
+    group by managerid
+    having count(*)>=5
+) e2
+on e2.managerId = e1.id;
